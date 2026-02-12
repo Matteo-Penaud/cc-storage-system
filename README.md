@@ -1,7 +1,7 @@
 # Storage sorter program
 
-## Pre-Design
-### Constrains
+## Pre-Design
+### Constrains
 - The program must be independent and reusable in wider projects
 - Storage chests shall not be accessible by users (unless for maintenance)
 - Unstorable items shall stay in the input chest (eg. no more chest available)
@@ -10,7 +10,7 @@
 - A watcher might be implemented and run once in a while (automatic or with user input) to check no different item types in chests
 - The program must wotk in a while loop or from user request (to avoid performance issues)
 
-### Functional needs
+### Functional needs
 - Store items automatically in chests from an input chest
 - Store a single item type per chest
 - Chest name shall be item name
@@ -18,7 +18,7 @@
 - User shall request items using name and quantity
 - User shall request items quantity using name
 
-### Hardware
+### Hardware
 - One computer to manage all chests
 - One chest per item type to store
 - One chest as input from user
