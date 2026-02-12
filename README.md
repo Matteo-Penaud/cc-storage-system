@@ -1,4 +1,4 @@
-# Storage sorter program
+# Storage sorter program
 
 ## Pre-Design
 ### Constrains
