@@ -8,4 +8,4 @@ local function getTest()
     return test
 end
 
-return {setTest = setTest, getTest = getTest}
+-- return {setTest = setTest, getTest = getTest}
