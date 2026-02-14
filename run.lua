@@ -1,12 +1,19 @@
-function chestIsNotUserChestFilter(chest_name, user_chest)
-    return not(chest_name == peripheral.getName(user_chest))
-end
+local utils = require("utils")
+local completion = require "cc.completion"
 
-local user_chest = peripheral.wrap("minecraft:chest_23")
+local input_storage_name = utils.getOrDefineSettings("input_storage")
+local input_storage = peripheral.wrap(input_storage_name)
+
+local output_storage_name = utils.getOrDefineSettings("output_storage")
+local output_storage = peripheral.wrap(output_storage_name)
+
+function chestIsNotUserChestFilter(chest_name, name)
+    return not(chest_name == name)
+end
 
 local chests = { peripheral.find("minecraft:chest", 
 function(chest_name, _)
-    return chestIsNotUserChestFilter(chest_name, user_chest)
+    return chestIsNotUserChestFilter(chest_name, input_storage_name) and chestIsNotUserChestFilter(chest_name, output_storage_name)
 end) }
 
 local chest_item_pairs = {}
@@ -30,26 +37,42 @@ for item, chest_name in pairs(chest_item_pairs) do
     print(item, chest_name)
 end
 
-while 1 do
-    user_chest = peripheral.wrap("minecraft:chest_23")
+term.clear()
+term.setCursorPos(1, 1)
 
-    term.clear()
-    for slot, item in pairs(user_chest.list()) do
+function storeFromInput()
+    input_storage = peripheral.wrap(input_storage_name)
+
+    for slot, item in pairs(input_storage.list()) do
         if chest_item_pairs[item.name] then
             print(("Found chest for %s"):format(item.name))
             dest_chest = peripheral.wrap(chest_item_pairs[item.name])
-            user_chest.pushItems(peripheral.getName(dest_chest), slot)            
+            input_storage.pushItems(peripheral.getName(dest_chest), slot)
         end
     end
-    sleep(1)
 end
 
--- local completion = require "cc.completion"
+function getFromStorage()
+    local event = os.pullEvent()
 
--- term.clear()
--- term.setCursorPos(1, 1)
--- term.setCursorBlink(true)
+    if event == "key" then
+        local item_to_find = read(nil, nil, function(text) return completion.choice(text, item_names_list) end)
 
--- while 1 do
---     read(nil, nil, function(text) return completion.choice(text, item_names_list) end)
--- end
+        if string.len(item_to_find) > 0 then
+            local origin_chest = peripheral.wrap(chest_item_pairs[item_to_find])
+            local dest_chest = peripheral.wrap(output_storage_name)
+            origin_chest.pushItems(peripheral.getName(dest_chest), 1)
+        end
+    else
+        sleep(0.1)
+    end
+end
+
+
+term.clear()
+term.setCursorPos(1, 1)
+term.setCursorBlink(true)
+
+while 1 do
+    parallel.waitForAll(storeFromInput, getFromStorage)
+end
