@@ -16,8 +16,14 @@ function Inventory.getFirstFilledSlot(inventory)
     return nil
 end
 
-function Inventory.getTotalItemCount(inventory)
-    return 0
+function Inventory.getTotalItemCount(inventory, itemName)
+    local totalCount = 0
+
+    for _, item in pairs(inventory) do
+        totalCount = totalCount + item.count
+    end
+
+    return totalCount
 end
 
 return Inventory

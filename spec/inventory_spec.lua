@@ -28,12 +28,20 @@ describe("Inventory utility :", function()
     describe("Get the total item type count in inventory", function()
         it("Shall return 0 if no item in the inventory", function()
             local inventory = {}
-            assert.are.same(0, Inventory.getTotalItemCount(inventory))
+            assert.are.same(0, Inventory.getTotalItemCount(inventory, itemName))
         end)
 
         it("Shall return the total count of item type in the inventory", function()
-            local inventory = {}
-            assert.are.same(0, Inventory.getTotalItemCount(inventory))
+            local itemName = "toto"
+            
+            local inventory = {
+                { name=itemName, count=52 },
+                { name=itemName, count=12 }
+            }
+            assert.are.same(
+                64,
+                Inventory.getTotalItemCount(inventory, itemName)
+            )
         end)
     end)
 end)
