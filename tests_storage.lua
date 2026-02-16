@@ -1,5 +1,6 @@
 local storage = require("storage")
 
+-- getFirstItemInInventory function tests
 function test_getFirstItemInInventory_call()
     assert(storage.getFirstItemInInventory ~= nil)
 end
@@ -32,3 +33,9 @@ test_getFirstItemInInventory_call()
 test_getFirstItemInInventory_emptyInventory()
 test_getFirstItemInInventory_multipleItems()
 test_getFirstItemInInventory_nilIsFirstItem()
+
+function test_addEmptyInventory_call()
+    assert(storage.addEmptyInventory ~= nil)
+end
+
+test_addEmptyInventory_call()
