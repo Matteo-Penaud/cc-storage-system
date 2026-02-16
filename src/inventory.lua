@@ -20,7 +20,9 @@ function Inventory.getItemCount(inventory, itemName)
     local totalCount = 0
 
     for _, item in pairs(inventory) do
-        totalCount = totalCount + item.count
+        if item.name == itemName then
+            totalCount = totalCount + item.count
+        end
     end
 
     return totalCount

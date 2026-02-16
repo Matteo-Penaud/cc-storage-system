@@ -35,7 +35,9 @@ describe("Inventory utility :", function()
             local itemName = "toto"
             
             local inventory = {
+                { nil },
                 { name=itemName, count=52 },
+                { name="titi", count=32 },
                 { name=itemName, count=12 }
             }
             assert.are.same(
