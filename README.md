@@ -1,5 +1,7 @@
 # Storage sorter program
 
+[![Busted](https://img.shields.io/github/actions/workflow/status/lunarmodules/busted/busted.yml?label=Busted&logo=Lua)](https://github.com/Matteo-Penaud/cc-storage-system/actions?workflow=Busted)
+
 ## Pre-Design
 ### Constrains
 - The program must be independent and reusable in wider projects
