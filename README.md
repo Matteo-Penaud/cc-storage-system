@@ -1,6 +1,6 @@
 # Storage sorter program
 
-[![Busted](https://img.shields.io/github/actions/workflow/status/lunarmodules/busted/busted.yml?label=Busted&logo=Lua)](https://github.com/Matteo-Penaud/cc-storage-system/actions?workflow=Busted)
+[![Busted](https://github.com/Matteo-Penaud/cc-storage-system/actions/workflows/tests-ci.yml/badge.svg)](https://github.com/Matteo-Penaud/cc-storage-system/actions)
 
 ## Pre-Design
 ### Constrains
