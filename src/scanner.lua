@@ -8,4 +8,12 @@ function Scanner.getFirstItem(inventory)
     return nil
 end
 
+function Scanner.getFirstFilledSlot(inventory)
+    for id, _ in pairs(inventory) do
+        return id
+    end
+
+    return nil
+end
+
 return Scanner
