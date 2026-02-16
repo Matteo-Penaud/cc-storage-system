@@ -1,16 +1,20 @@
 local Inventory = {}
 
 function Inventory.getFirstItem(inventory)
-    for _, item in pairs(inventory) do
-        return item
+    if inventory then
+        for _, item in pairs(inventory) do
+            return item
+        end
     end
 
     return nil
 end
 
 function Inventory.getFirstFilledSlot(inventory)
-    for id, _ in pairs(inventory) do
-        return id
+    if inventory then
+        for id, _ in pairs(inventory) do
+            return id
+        end
     end
 
     return nil
@@ -18,10 +22,11 @@ end
 
 function Inventory.getItemCount(inventory, itemName)
     local totalCount = 0
-
-    for _, item in pairs(inventory) do
-        if item.name == itemName then
-            totalCount = totalCount + item.count
+    if inventory then
+        for _, item in pairs(inventory) do
+            if item.name == itemName then
+                totalCount = totalCount + item.count
+            end
         end
     end
 
@@ -31,9 +36,11 @@ end
 function Inventory.getTotalItemCount(inventory)
     local totalCount = 0
 
-    for _, item in pairs(inventory) do
-        if item.count ~= nil then
-            totalCount = totalCount + item.count
+    if inventory then
+        for _, item in pairs(inventory) do
+            if item.count ~= nil then
+                totalCount = totalCount + item.count
+            end
         end
     end
     
