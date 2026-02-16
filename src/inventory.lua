@@ -28,4 +28,16 @@ function Inventory.getItemCount(inventory, itemName)
     return totalCount
 end
 
+function Inventory.getTotalItemCount(inventory)
+    local totalCount = 0
+
+    for _, item in pairs(inventory) do
+        if item.count ~= nil then
+            totalCount = totalCount + item.count
+        end
+    end
+    
+    return totalCount
+end
+
 return Inventory
