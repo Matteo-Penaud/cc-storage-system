@@ -53,7 +53,7 @@ describe("Inventory utility :", function()
             assert.are.same(0, Inventory.getTotalItemCount(inventory))
         end)
 
-        it("Shall return the total count of item type in the inventory", function()           
+        it("Shall return the total count of items in the inventory", function()           
             local inventory = {
                 { nil },
                 { name="toto", count=52 },
