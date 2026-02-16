@@ -23,3 +23,7 @@
 - One chest per item type to store
 - One chest as input from user
 - One chest as output to user
+
+## Design
+### Sorter
+- The sorter program shall scan the network for chests and mark which item goes in the chest, or if the chest is empty
