@@ -1,11 +1,15 @@
 local Item = {}
 
+Item.__index = Item
+
 --- Create a new item.
 --- @param name string
 --- @param count number
 --- @param maxCount number
 --- @return table
 function Item.new(name, count, maxCount)
+    local self = setmetatable({}, Item)
+
     if not name
         or type(name) ~= "string"
         or name == ""
@@ -31,12 +35,12 @@ function Item.new(name, count, maxCount)
     then
         error("Count must be a lower or equal to maxCount")
     end
+
+    self.name = name
+    self.count = count
+    self.maxCount = maxCount
     
-    return {
-        name = "toto",
-        count = 10,
-        maxCount = 64,
-    }
+    return self
 end
 
 return Item

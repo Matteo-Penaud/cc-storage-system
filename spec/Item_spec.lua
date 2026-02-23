@@ -2,11 +2,6 @@ local Item = require("src.item")
 
 describe("Item class :", function()
     describe("Create a new item", function()
-        it("Just call the new function", function()
-            local item = Item.new("toto", 10, 64)
-            assert.is.table(item)
-        end)
-
         it("Simple creation", function()
             local item = Item.new("toto", 10, 64)
             assert.are.same("toto", item.name)
@@ -15,49 +10,37 @@ describe("Item class :", function()
         end)
 
         -- Test name parameter
-        it("Name is nil", function()
-            assert.has_error(function()
-                Item.new(nil, 10, 64)
-            end, "Item name must be a non-empty string")
-        end)
+        local invalidNames = {
+            {"nil", nil},
+            {"empty string", ""},
+            {"not a string", 1}
+        }
+        
+        for _, case in pairs(invalidNames) do
+            it(("Name is %s"):format(case[1]), function()
+                assert.has_error(function()
+                    Item.new(case[2], 10, 64)
+                end, "Item name must be a non-empty string")
+            end)
+        end
 
-        it("Name is empty string", function()
-            assert.has_error(function()
-                Item.new("", 10, 64)
-            end, "Item name must be a non-empty string")
-        end)
+        -- Test invalid count parameter
+        local invalidCounts = {
+            {"nil", nil},
+            {"not a number", "test"},
+            {"0", 0},
+            {"negative", -1}
+        }
+        
+        for _, case in pairs(invalidCounts) do
+            it(("Count is %s"):format(case[1]), function()
+                assert.has_error(function()
+                    Item.new("toto", case[2], 64)
+                end, "Count must be a positive not 0 integer")
+            end)
+        end
 
-        it("Name is not a string", function()
-            assert.has_error(function()
-                Item.new(78, 10, 64)
-            end, "Item name must be a non-empty string")
-        end)
-
-        -- Test count parameter
-        it("Count is nil", function()
-            assert.has_error(function()
-                Item.new("toto", nil, 64)
-            end, "Count must be a positive not 0 integer")
-        end)
-
-        it("Count is not a number", function()
-            assert.has_error(function()
-                Item.new("toto", "test", 64)
-            end, "Count must be a positive not 0 integer")
-        end)
-
-        it("Count is 0", function()
-            assert.has_error(function()
-                Item.new("toto", 0, 64)
-            end, "Count must be a positive not 0 integer")
-        end)
-
-        it("Count is a negative number", function()
-            assert.has_error(function()
-                Item.new("toto", -1, 64)
-            end, "Count must be a positive not 0 integer")
-        end)
-
+        -- Test count vs maxCount parameter
         it("Count is greater than maxCount", function()
             assert.has_error(function()
                 Item.new("toto", 2, 1)
