@@ -1,0 +1,92 @@
+local Item = require("src.item")
+
+describe("Item class :", function()
+    describe("Create a new item", function()
+        it("Just call the new function", function()
+            local item = Item.new("toto", 10, 64)
+            assert.is.table(item)
+        end)
+
+        it("Simple creation", function()
+            local item = Item.new("toto", 10, 64)
+            assert.are.same("toto", item.name)
+            assert.are.same(10, item.count)
+            assert.are.same(64, item.maxCount)
+        end)
+
+        -- Test name parameter
+        it("Name is nil", function()
+            assert.has_error(function()
+                Item.new(nil, 10, 64)
+            end, "Item name must be a non-empty string")
+        end)
+
+        it("Name is empty string", function()
+            assert.has_error(function()
+                Item.new("", 10, 64)
+            end, "Item name must be a non-empty string")
+        end)
+
+        it("Name is not a string", function()
+            assert.has_error(function()
+                Item.new(78, 10, 64)
+            end, "Item name must be a non-empty string")
+        end)
+
+        -- Test count parameter
+        it("Count is nil", function()
+            assert.has_error(function()
+                Item.new("toto", nil, 64)
+            end, "Count must be a positive not 0 integer")
+        end)
+
+        it("Count is not a number", function()
+            assert.has_error(function()
+                Item.new("toto", "test", 64)
+            end, "Count must be a positive not 0 integer")
+        end)
+
+        it("Count is 0", function()
+            assert.has_error(function()
+                Item.new("toto", 0, 64)
+            end, "Count must be a positive not 0 integer")
+        end)
+
+        it("Count is a negative number", function()
+            assert.has_error(function()
+                Item.new("toto", -1, 64)
+            end, "Count must be a positive not 0 integer")
+        end)
+
+        it("Count is greater than maxCount", function()
+            assert.has_error(function()
+                Item.new("toto", 2, 1)
+            end, "Count must be a lower or equal to maxCount")
+        end)
+
+        -- Test maxCount parameter
+        it("maxCount is nil", function()
+            assert.has_error(function()
+                Item.new("toto", 1, nil)
+            end, "maxCount must be a positive integer greater than 0")
+        end)
+
+        it("maxCount is not a number", function()
+            assert.has_error(function()
+                Item.new("toto", 1, "test")
+            end, "maxCount must be a positive integer greater than 0")
+        end)
+
+        it("maxCount is 0", function()
+            assert.has_error(function()
+                Item.new("toto", 1, 0)
+            end, "maxCount must be a positive integer greater than 0")
+        end)
+
+        it("maxCount is a negative number", function()
+            assert.has_error(function()
+                Item.new("toto", 1, -1)
+            end, "maxCount must be a positive integer greater than 0")
+        end)
+    end)
+end)

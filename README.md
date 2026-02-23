@@ -28,6 +28,19 @@
 
 
 # Design
+## Data Structures
+### Item 
+- name
+- count
+- maxCount
+
+### Inventory
+- size
+- items[size]
+- peripheralName
+
+
+
 ## Inventory informations
 - The inventory infos shall return the total amount of an item in the inventory
 - The inventory infos shall return the populated slots
