@@ -15,7 +15,7 @@ describe("Item class :", function()
             {"empty string", ""},
             {"not a string", 1}
         }
-        
+
         for _, case in pairs(invalidNames) do
             it(("Name is %s"):format(case[1]), function()
                 assert.has_error(function()
@@ -31,7 +31,7 @@ describe("Item class :", function()
             {"0", 0},
             {"negative", -1}
         }
-        
+
         for _, case in pairs(invalidCounts) do
             it(("Count is %s"):format(case[1]), function()
                 assert.has_error(function()
@@ -48,28 +48,19 @@ describe("Item class :", function()
         end)
 
         -- Test maxCount parameter
-        it("maxCount is nil", function()
-            assert.has_error(function()
-                Item.new("toto", 1, nil)
-            end, "maxCount must be a positive integer greater than 0")
-        end)
+        local invalidCounts = {
+            {"nil", nil},
+            {"not a number", "test"},
+            {"0", 0},
+            {"negative", -1}
+        }
 
-        it("maxCount is not a number", function()
-            assert.has_error(function()
-                Item.new("toto", 1, "test")
-            end, "maxCount must be a positive integer greater than 0")
-        end)
-
-        it("maxCount is 0", function()
-            assert.has_error(function()
-                Item.new("toto", 1, 0)
-            end, "maxCount must be a positive integer greater than 0")
-        end)
-
-        it("maxCount is a negative number", function()
-            assert.has_error(function()
-                Item.new("toto", 1, -1)
-            end, "maxCount must be a positive integer greater than 0")
-        end)
+        for _, case in pairs(invalidCounts) do
+            it(("maxCount is %s"):format(case[1]), function()
+                assert.has_error(function()
+                    Item.new("toto", 1, case[2])
+                end, "maxCount must be a positive integer greater than 0")
+            end)
+        end
     end)
 end)
