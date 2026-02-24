@@ -48,19 +48,21 @@ describe("Item class :", function()
         end)
 
         -- Test maxCount parameter
-        local invalidCounts = {
+        local invalidMaxCounts = {
             {"nil", nil},
             {"not a number", "test"},
             {"0", 0},
             {"negative", -1}
         }
 
-        for _, case in pairs(invalidCounts) do
+        for _, case in pairs(invalidMaxCounts) do
             it(("maxCount is %s"):format(case[1]), function()
                 assert.has_error(function()
                     Item.new("toto", 1, case[2])
                 end, "maxCount must be a positive integer greater than 0")
             end)
         end
+
+
     end)
 end)
