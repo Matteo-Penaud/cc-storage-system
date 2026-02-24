@@ -6,3 +6,11 @@ repos:
       - id: end-of-file-fixer
       - id: check-yaml
       - id: check-added-large-files
+  - repo: local
+    hooks:
+      - id: run-lua-tests
+        name: Run Lua tests
+        entry: busted --verbose
+        language: system
+        pass_filenames: false
+        stages: [commit]
