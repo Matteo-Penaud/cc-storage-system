@@ -1,72 +1,26 @@
 local Inventory = require("src.inventory")
 
 describe("Inventory utility :", function()
-    describe("Get the first item in the inventory", function()
-        it("Shall return nil for an empty inventory", function()
-            local inventory = nil
-            assert.are.same(nil, Inventory.getFirstItem(inventory))
-        end)
-
-        it("Shall return the first valid item for valid inventory", function()
-            local item = { name="titi", count=32 }
-            local inventory = { nil, item }
-            assert.are.same(item, Inventory.getFirstItem(inventory))
-        end)
-    end)
-
-    describe("Get the first filled slot in the Inventory", function()
-        it("Shall return nil for an empty inventory", function()
-            local inventory = nil
-            assert.are.same(nil, Inventory.getFirstFilledSlot(inventory))
-        end)
-
-        it("Shall return the first filled slot id", function()
-            local item = { name="titi", count=32 }
-            local inventory = { nil, item }
-            assert.are.same(2, Inventory.getFirstFilledSlot(inventory))
-        end)
-    end)
-
-    describe("Get the total item type count in inventory", function()
-        it("Shall return 0 if no item in the inventory", function()
-            local inventory = nil
-            assert.are.same(0, Inventory.getItemCount(inventory, itemName))
-        end)
-
-        it("Shall return the total count of item type in the inventory", function()
-            local itemName = "toto"
+    describe("Create an inventory representation", function()
+        it("Simple creation", function()
+            local inventory = Inventory.new("inventory_1")
             
-            local inventory = {
-                { nil },
-                { name=itemName, count=52 },
-                { name="titi", count=32 },
-                { name=itemName, count=12 }
-            }
-            assert.are.same(
-                64,
-                Inventory.getItemCount(inventory, itemName)
-            )
-        end)
-    end)
-
-    describe("Get the total items count in inventory", function()
-        it("Shall return 0 if no item in the inventory", function()
-            local inventory = nil
-            assert.are.same(0, Inventory.getTotalItemCount(inventory))
+            assert.are.same("inventory_1", inventory.name)
         end)
 
-        it("Shall return the total count of items in the inventory", function()           
-            local inventory = {
-                { nil },
-                { name="toto", count=52 },
-                { name="toto", count=27 },
-                { name="titi", count=32 },
-                { name="tata", count=12 }
-            }
-            assert.are.same(
-                123,
-                Inventory.getTotalItemCount(inventory)
-            )
-        end)
+        -- Test name parameter
+        local invalidNames = {
+            {"nil", nil},
+            {"empty string", ""},
+            {"not a string", 1}
+        }
+
+        for _, case in pairs(invalidNames) do
+            it(("Name is %s"):format(case[1]), function()
+                assert.has_error(function()
+                    Inventory.new(case[2])
+                end, "Inventory name must be a non-empty string")
+            end)
+        end
     end)
 end)
