@@ -51,8 +51,35 @@ describe("Inventory utility :", function()
             assert.are.same(item, inventory.items[1])
         end)
 
-        it("Multiple items", function()
+        it("Simple item at slot 2 but inventory size = 1", function()
             local inventory = Inventory.new("inventory_1", 1)
+            local item = Item.new("toto", 10, 64)
+        
+            assert.has_error(function()
+                inventory:addItem(item, 2)
+            end, "Inventory is not big enough")
+        end)
+
+        local invalidSlot = {
+            {"nil", nil},
+            {"not a number", "test"},
+            {"0", 0},
+            {"negative", -1}
+        }
+
+        for _, case in pairs(invalidSlot) do
+            it(("Size is %s"):format(case[1]), function()
+                local inventory = Inventory.new("inventory_1", 1)
+                local item = Item.new("toto", 10, 64)
+
+                assert.has_error(function()
+                    inventory:addItem(item, case[2])
+                end, "Slot must be a positive not 0 integer")
+            end)
+        end
+
+        it("Multiple items", function()
+            local inventory = Inventory.new("inventory_1", 3)
             local items = {
                 Item.new("toto", 10, 64),
                 Item.new("tata", 1, 2),

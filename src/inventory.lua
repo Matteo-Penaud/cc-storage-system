@@ -38,7 +38,18 @@ end
 --- @param slot number
 --- @return nil
 function Inventory:addItem(item, slot)
-    table.insert(self.items, slot, item)
+    if not slot
+        or type(slot) ~= "number"
+        or slot <= 0
+    then
+        error("Slot must be a positive not 0 integer")
+    end
+
+    if slot <= self.size then
+        table.insert(self.items, slot, item)
+    else
+        error("Inventory is not big enough")
+    end
 end
 
 return Inventory
